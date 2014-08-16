@@ -15,6 +15,7 @@ module Lita
 
       def fetch(response)
         query = response.matches[0][0]
+        query = "unicorn #{query}" if Date.today.tuesday?
 
         http_response = http.get(
           URL,
@@ -35,9 +36,7 @@ module Lita
           end
         else
           reason = data["responseDetails"] || "unknown error"
-          Lita.logger.warn(
-            "Couldn't get image from Google: #{reason}"
-          )
+          Lita.logger.warn "Couldn't get image from Google: #{reason}"
         end
       end
 
